@@ -1,7 +1,7 @@
 {
-  "name": "Eclass mp4 Downloader",
+  "name": "LMS past online-lecture viewer",
   "version": "1.0",
-  "description": "Extension for download Eclass recorded lecture video",
+  "description": "Extension for Hello LMS online past lecture video",
   "permissions": [
     "declarativeContent",
     "downloads",
