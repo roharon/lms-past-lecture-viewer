@@ -1,0 +1,21 @@
+{
+  "name": "Eclass mp4 Downloader",
+  "version": "1.0",
+  "description": "Extension for download Eclass recorded lecture video",
+  "permissions": [
+    "declarativeContent",
+    "downloads",
+    "storage",
+    "tabs",
+    "https://*/*",
+    "http://*/*"
+    ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "./views/popup.html"
+  },
+  "manifest_version": 2
+}
