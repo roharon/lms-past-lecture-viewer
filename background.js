@@ -10,19 +10,8 @@ chrome.runtime.onInstalled.addListener(function () {
     ],
   }
 
-  var panopto_rule = {
-    conditions: [
-      new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: { hostEquals: 'hufs.ap.panopto.com' },
-      }),
-    ],
-    actions: [
-      new chrome.declarativeContent.ShowPageAction(),
-    ],
-  }
-
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
-    chrome.declarativeContent.onPageChanged.addRules([eclass_rule, panopto_rule]);
+    chrome.declarativeContent.onPageChanged.addRules([eclass_rule]);
   });
   
 });

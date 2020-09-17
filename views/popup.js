@@ -1,36 +1,34 @@
-var button = document.getElementById("start")
-var videoUrlElement = document.getElementById("videoUrl")
+var videoUrlElement = document.getElementById("lecture")
 
-function getPanoptoVideo() {
+function getLectureList() {
   var detail = {
-    code: `document.head.innerHTML`
+    code: `document.body.innerHTML`
   }
-
+ 
   chrome.tabs.executeScript(detail, (result) => {
-    var e1 = document.createElement('html');
-    e1.innerHTML = result
+    var html = document.createElement('html');
+    html.innerHTML = result
 
-    var metaTags = e1.getElementsByTagName("meta")
-    var videoUrl;
+    var viewElement = html.getElementsByClassName("view")
+    var length = viewElement.length;
+    //chrome.extension.getBackgroundPage().console.log(viewElement[0].outerHTML)
 
-    for (var idx = 0; idx < metaTags.length; idx++) {
-      if (metaTags[idx].name == "twitter:player:stream") {
-        //chrome.extension.getBackgroundPage().console.log(metaTags[idx].content, metaTags[idx].name)
-        videoUrl = metaTags[idx].content
-
-        chrome.storage.sync.set({ videoUrl: videoUrl });
-        break;
-      }
+    var result;
+    for(var i = 0; i < length; i++){
+      result = viewElement[i].outerHTML.match(/(viewGo\(.*;)/)[0]
+      // get string of onclick function
+      
+      chrome.storage.sync.set({viewFunction: result})
     }
   })
 }
 
 function OnLoad() {
-  getPanoptoVideo();
+  getLectureList();
 
-  chrome.storage.sync.get(['videoUrl'], function (result) {
-    //chrome.extension.getBackgroundPage().console.log(result.videoUrl)
-    videoUrlElement.innerText = result.videoUrl
+  chrome.storage.sync.get(['viewFunction'], function (result) {
+    videoUrlElement.innerText = result.viewFunction
+    //TODO: change innerText to List
   });
 }
 
